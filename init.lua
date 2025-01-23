@@ -20,3 +20,16 @@ require "polish"
 
 require "configs"
 require "mappings"
+
+return {
+  lsp = {
+    ["server-settings"] = {
+      clangd = {
+        capabilities = {
+          offsetEncoding = "utf-8",
+          clangFormatPath = "~/.config/nvim/.clang-format",
+        },
+      },
+    },
+  },
+}
