@@ -1,6 +1,8 @@
 vim.wo.number = true
 vim.wo.relativenumber = false
 
+vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+
 if package.config:sub(1,1) == "/" then
     vim.opt.shell = "/bin/zsh"
 else
