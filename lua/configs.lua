@@ -1,10 +1,14 @@
 vim.wo.number = true
 vim.wo.relativenumber = false
 
-vim.opt.shell = "/bin/zsh"
+if package.config:sub(1,1) == "/" then
+    vim.opt.shell = "/bin/zsh"
+else
+    -- vim.opt.shell = "cmd?"
+end
 
 if vim.g.neovide then
-    vim.g.neovide_scale_factor = 0.85
+    vim.g.neovide_scale_factor = 0.75
     vim.opt.linespace = 0
 
     vim.g.neovide_padding_top = 0
@@ -56,5 +60,6 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_particle_density = 11.0
     vim.g.neovide_cursor_vfx_particle_curl = 2.0
 
+    vim.g.neovide_scroll_animation_far_lines = 1
 end
 
