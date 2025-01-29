@@ -1,3 +1,1 @@
-return {
-  "nyoom-engineering/oxocarbon.nvim",
-}
+return {"nyoom-engineering/oxocarbon.nvim"}

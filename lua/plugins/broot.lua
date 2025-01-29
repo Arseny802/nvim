@@ -1,5 +1,5 @@
 return {
     "aohoyd/broot.nvim",
-    lazy=false,
+    lazy = false,
     opts = {}
 }

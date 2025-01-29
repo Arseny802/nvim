@@ -1,9 +1,9 @@
 vim.wo.number = true
 vim.wo.relativenumber = false
 
-vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+vim.opt.clipboard:append{'unnamed', 'unnamedplus'}
 
-if package.config:sub(1,1) == "/" then
+if package.config:sub(1, 1) == "/" then
     vim.opt.shell = "/bin/zsh"
 else
     -- vim.opt.shell = "cmd?"
@@ -20,7 +20,7 @@ if vim.g.neovide then
 
     -- Helper function for transparency formatting
     local alpha = function()
-    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+        return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
     end
     -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
     vim.g.neovide_transparency = 0.92
@@ -28,10 +28,9 @@ if vim.g.neovide then
     vim.g.neovide_normal_opacity = 0.8
     vim.g.neovide_background_color = "#0f1117" .. alpha()
 
-    vim.g.neovide_title_background_color = string.format(
-        "%x",
-        vim.api.nvim_get_hl(0, {id=vim.api.nvim_get_hl_id_by_name("Normal")}).bg
-    )
+    vim.g.neovide_title_background_color = string.format("%x", vim.api.nvim_get_hl(0, {
+        id = vim.api.nvim_get_hl_id_by_name("Normal")
+    }).bg)
 
     vim.g.neovide_title_text_color = "pink"
     vim.g.neovide_window_blurred = true
