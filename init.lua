@@ -25,6 +25,13 @@ require "mappings"
 
 return {
     lsp = {
+			format = {
+				_ = { on_save = false },
+				c = { on_save = false },
+				cpp = { on_save = false },
+				cmake = { on_save = false },
+				lua = {	on_save = false }
+			},
         ["server-settings"] = {
             clangd = {
                 capabilities = {
