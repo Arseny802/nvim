@@ -1,13 +1,13 @@
 vim.wo.number = true
 vim.wo.relativenumber = false
-
+vim.cmdheight = 1
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
-if package.config:sub(1, 1) == "/" then
-	vim.opt.shell = "/bin/zsh"
-else
-	-- vim.opt.shell = "cmd?"
-end
+-- if package.config:sub(1, 1) == "/" then
+-- 	vim.opt.shell = "/bin/zsh"
+-- else
+-- 	-- vim.opt.shell = "cmd?"
+-- end
 
 if vim.g.neovide then
 	vim.g.neovide_scale_factor = 0.75
