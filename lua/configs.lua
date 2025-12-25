@@ -67,6 +67,9 @@ if vim.g.neovide then
 	vim.g.neovide_scroll_animation_far_lines = 1
 end
 
+require("nvim-treesitter.install").prefer_git = true
+require("devcontainer").setup({})
+
 require("codecompanion").setup({
 	strategies = {
 		chat = {

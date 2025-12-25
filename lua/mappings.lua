@@ -9,15 +9,15 @@ local function run_curr_python_file(args)
 	vim.fn.feedkeys("exit" .. enter)
 end
 
-local function conan_get_packages(args)
+local function conan_get_packages()
 	run_curr_python_file("--deps")
 end
 
-local function cmake_reload(args)
+local function cmake_reload()
 	run_curr_python_file("--cmake")
 end
 
-local function cmake_build(args)
+local function cmake_build()
 	run_curr_python_file("--build")
 end
 
@@ -87,5 +87,12 @@ vim.api.nvim_set_keymap("n", "<Leader>mt", "", {
 	end,
 	desc = "CMake: Run all tests",
 })
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>B",
+	":lua require('neogen').generate()<CR>",
+	{ noremap = true, silent = true, desc = "Generate brief template for this function" }
+)
 
 return {}
