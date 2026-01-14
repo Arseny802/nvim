@@ -19,7 +19,12 @@ dap.adapters.codelldb = {
 		command = codelldb_path,
 		-- args = { "--liblldb", liblldb_path, "--port", "${port}" },
 		args = { "--port", "${port}" },
+		detached = isWin and false or true,
 	},
+}
+dap.adapters.lldb = {
+	type = "executable",
+	command = "C:\\Program Files\\LLVM\\bin\\lldb-dap.exe", -- Find lldb-vscode on $PATH
 }
 dap.adapters.gdb = {
 	type = "server",
@@ -28,10 +33,59 @@ dap.adapters.gdb = {
 	executable = {
 		command = "gdb",
 		args = { "--interpreter=mi" }, -- Аргумент для интерфейса Machine Interface
+		detached = isWin and false or true,
+	},
+}
+dap.adapters.cppdbg = {
+	id = "cppdbg",
+	type = "executable",
+	command = "C:\\Users\\a.ravin\\.vscode\\extensions\\ms-vscode.cpptools-1.29.3-win32-x64\\debugAdapters\\bin\\OpenDebugAD7.exe",
+	options = {
+		detached = false,
 	},
 }
 
 dap.configurations.cpp = {
+	{
+		name = "Launch cppdbg",
+		type = "cppdbg",
+		request = "launch",
+		program = function()
+			return require("cmake-tools").get_launch_target_path()
+		end,
+		cwd = function()
+			return require("cmake-tools").get_base_vars().dir.build
+		end,
+		stopAtEntry = false,
+		setupCommands = {
+			{
+				text = "-enable-pretty-printing",
+				description = "enable pretty printing",
+				ignoreFailures = true,
+			},
+		},
+		environment = require("cmake-tools").get_run_environment(),
+		symbolSearchPath = function()
+			-- return require("cmake-tools").get_run_environment()
+			return {
+				vim.env.PATH,
+				require("cmake-tools").get_run_environment(),
+				require("cmake-tools").get_build_environment(),
+				require("cmake-tools").get_base_vars().dir.binary,
+			}
+		end,
+	},
+	{
+		type = "lldb",
+		request = "launch",
+		name = "Launch CPP",
+		program = function()
+			return require("cmake-tools").get_launch_target_path()
+		end,
+		cwd = "${workspaceFolder}",
+		args = {},
+		runInTerminal = false,
+	},
 	{
 		name = "Launch GDB",
 		type = "gdb",
@@ -63,18 +117,7 @@ dap.configurations.cpp = {
 		cwd = "${workspaceFolder}",
 		stopOnEntry = false,
 		args = {},
-		-- runInTerminal = false,
-		runInTerminal = true,
-		console = "integratedTerminal",
-		externalConsole = false,
-		MIMode = "lldb",
-		setupCommands = {
-			{
-				description = "Enable pretty printing in GDB",
-				text = '-interpreter-exec console "set logging on"',
-				ignoreFailures = true,
-			},
-		},
+		terminal = "integrated",
 	},
 }
 

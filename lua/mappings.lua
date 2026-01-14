@@ -106,8 +106,7 @@ vim.api.nvim_set_keymap("n", "<Leader>md", "", {
 	noremap = true,
 	callback = function()
 		require("cmake-tools").quick_debug({ -- opts
-			nargs = "?",
-			fargs = { nil },
+			nargs = "*",
 			desc = "CMake quick debug",
 		})
 	end,
