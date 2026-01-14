@@ -1,44 +1,55 @@
+--OS detection
+local mySysname = vim.loop.os_uname().sysname
+isMac = mySysname == "Darwin"
+isLinux = mySysname == "Linux"
+isWin = mySysname:find("Windows") and true or false
+isWsl = isLinux and vim.loop.os_uname().release:find("Microsoft") and true or false
+
+if isWin then
+	vim.g.node_host_prog = "C:/Program Files/nodejs"
+end
+
 -- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
 -- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
-local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
-    -- stylua: ignore
-    vim.fn.system({"git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
-                   lazypath})
+	-- stylua: ignore
+	vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+		lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- validate that lazy is available
 if not pcall(require, "lazy") then
-    -- stylua: ignore
-    vim.api.nvim_echo({{("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg"},
-                       {"Press any key to exit...", "MoreMsg"}}, true, {})
-    vim.fn.getchar()
-    vim.cmd.quit()
+	-- stylua: ignore
+	vim.api.nvim_echo({ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" },
+		{ "Press any key to exit...",                          "MoreMsg" } }, true, {})
+	vim.fn.getchar()
+	vim.cmd.quit()
 end
 
-require "lazy_setup"
-require "polish"
+require("lazy_setup")
+require("polish")
 
-require "configs"
-require "mappings"
+require("configs")
+require("mappings")
 
 return {
-    lsp = {
-			format = {
-				_ = { on_save = false },
-				c = { on_save = false },
-				cpp = { on_save = false },
-				cmake = { on_save = false },
-				lua = {	on_save = false }
+	lsp = {
+		format = {
+			_ = { on_save = false },
+			c = { on_save = false },
+			cpp = { on_save = false },
+			cmake = { on_save = false },
+			lua = { on_save = false },
+		},
+		["server-settings"] = {
+			clangd = {
+				capabilities = {
+					offsetEncoding = "utf-8",
+					clangFormatPath = "~/.config/nvim/.clang-format",
+				},
 			},
-        ["server-settings"] = {
-            clangd = {
-                capabilities = {
-                    offsetEncoding = "utf-8",
-                    clangFormatPath = "~/.config/nvim/.clang-format"
-                }
-            }
-        }
-    }
+		},
+	},
 }
