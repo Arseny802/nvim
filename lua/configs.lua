@@ -6,7 +6,8 @@ vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- if package.config:sub(1, 1) == "/" then
 -- 	vim.opt.shell = "/bin/zsh"
 -- else
--- 	-- vim.opt.shell = "cmd?"
+-- 	vim.opt.shell = "powershell"
+-- 	vim.g.shell = "powershell"
 -- end
 
 if vim.g.neovide then
@@ -124,7 +125,9 @@ require("codecompanion").setup({
 					"yarn.lock",
 					"*.log",
 					"dist/*",
-					"build/*",
+					"build?/*",
+					"_build?/*",
+					"__build?/*",
 					".next/*",
 					"node_modules/*",
 					"vendor/*",
