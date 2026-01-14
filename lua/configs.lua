@@ -6,7 +6,8 @@ vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 -- if package.config:sub(1, 1) == "/" then
 -- 	vim.opt.shell = "/bin/zsh"
 -- else
--- 	-- vim.opt.shell = "cmd?"
+-- 	vim.opt.shell = "powershell"
+-- 	vim.g.shell = "powershell"
 -- end
 
 if vim.g.neovide then
@@ -66,6 +67,15 @@ if vim.g.neovide then
 
 	vim.g.neovide_scroll_animation_far_lines = 1
 end
+
+require("lspconfig").clangd.setup({
+	on_new_config = function(new_config, new_cwd)
+		local status, cmake = pcall(require, "cmake-tools")
+		if status then
+			cmake.clangd_on_new_config(new_config)
+		end
+	end,
+})
 
 require("nvim-treesitter.install").prefer_git = true
 require("devcontainer").setup({})
