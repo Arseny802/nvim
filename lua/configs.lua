@@ -1,7 +1,6 @@
 vim.wo.number = true
 vim.wo.relativenumber = false
 vim.cmdheight = 1
-vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 -- if package.config:sub(1, 1) == "/" then
 -- 	vim.opt.shell = "/bin/zsh"
@@ -76,6 +75,10 @@ require("lspconfig").clangd.setup({
 		end
 	end,
 })
+
+if not vim.env["CMAKE_GENERATOR"] then
+	vim.env["CMAKE_GENERATOR"] = "Ninja Multi-Config"
+end
 
 require("nvim-treesitter.install").prefer_git = true
 require("devcontainer").setup({})
