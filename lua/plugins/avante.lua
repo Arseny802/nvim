@@ -1,6 +1,6 @@
-if true then
-	return {}
-end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then
+-- 	return {}
+-- end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 return {
 	"yetone/avante.nvim",
@@ -17,7 +17,7 @@ return {
 		-- this file can contain specific instructions for your project
 		instructions_file = "avante.md",
 		-- for example
-		provider = "ollama",
+		provider = "gigachat",
 		providers = {
 			ollama = {
 				endpoint = "http://127.0.0.1:11434", -- Local Ollama (no /v1)
@@ -26,6 +26,18 @@ return {
 				is_env_set = function()
 					return true
 				end,
+			},
+			gigachat = {
+				__inherited_from = "openai",
+				auth_type = "api", -- Тип аутентификации
+				api_key_name = "GIGACHAT_API_KEY",
+				-- api_key = os.getenv("GIGACHAT_API_KEY"), -- Переменная среды с вашим ключом
+				model = "gigachat-standard-model", -- Модель по умолчанию
+				timeout = 30000, -- Таймаут ожидания ответа
+				extra_request_body = {
+					temperature = 0.75, -- Параметры генерации текста
+					max_tokens = 4096,
+				},
 			},
 		},
 		-- providers = {
