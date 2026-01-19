@@ -36,11 +36,10 @@ customCommands:
 gui:
   nerdFontsVersion: "3"
   authorColors:
-    '^*Arseny802*': 'green'
-    '^*Ravin Arseny*': 'green'
-    '^*Равин Арсений*': 'green'
-    'Равин Арсений <a.ravin@dssl.ru>': 'green'
-    '*ss': 'red'
+    'Ravin Arseny': 'green'
+    'Arseny Ravin': 'green'
+    'Равин Арсений': 'green'
+    'Арсений Равин': 'green'
   branchColorPatterns:
     '^bug/': 'red'
     '^feat/': 'green'
