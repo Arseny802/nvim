@@ -1,0 +1,56 @@
+# Config relating to git
+git:
+  autoForwardBranches: allBranches
+  mainBranches:
+    - master
+    - main
+    - develop # Trassir main branch
+    - release
+  parseEmoji: true
+
+# If true, don't display introductory popups upon opening Lazygit.
+disableStartupPopups: true
+
+# User-configured commands that can be invoked from within Lazygit
+customCommands:
+  - key: '<f1>'
+    context: global
+    description: "Сделать патч из staged файлов"
+    loadingText: "Патч создаётся..."
+    output: 'popup'
+    outputTitle: "Создание патча"
+    command: git commit -m "{{.Form.PatchName}}" && git format-patch -1 && git reset HEAD~ --merge && git apply 0001-{{.Form.PatchName}}.patch --index
+    prompts:
+      - type: input
+        title: 'Имя патча:'
+        key: 'PatchName'
+        initialValue: "{{.CheckedOutBranch.Name}}-fix"
+  - key: '<f3>'
+    context: global
+    description: "Сделать патч из staged файлов"
+    loadingText: "Патч создаётся..."
+    output: 'popup'
+    outputTitle: "Создание патча"
+    command: echo {{if .Worktree.Path }} {{.Worktree.Path}} {{else}} unix {{ end }}
+
+gui:
+  nerdFontsVersion: "3"
+  authorColors:
+    '^*Arseny802*': 'green'
+    '^*Ravin Arseny*': 'green'
+    '^*Равин Арсений*': 'green'
+    'Равин Арсений <a.ravin@dssl.ru>': 'green'
+    '*ss': 'red'
+  branchColorPatterns:
+    '^bug/': 'red'
+    '^feat/': 'green'
+    '^feature/': 'green'
+    '^test/': 'blue'
+    '^tests/': 'blue'
+    '^epic/': '#aa862f'
+    '^main*': 'yellow'
+    '^master*': 'yellow'
+    '^dev*': 'yellow'
+    '^release*': 'yellow'
+    '^docs/': '#11aaff' # use a light blue for branches beginning with 'docs/'
+    'ISSUE-\d+': '#ff5733' # use a bright orange for branches containing 'ISSUE-<some-number>'
