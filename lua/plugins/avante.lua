@@ -1,6 +1,11 @@
--- if true then
--- 	return {}
--- end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+local username = os.getenv("USER") or os.getenv("USERNAME")
+if username == "a.ravin" then
+	vim.notify(
+		"Имя пользователя: " .. username .. ". Avante деактивирован.",
+		vim.log.levels.WARN
+	)
+	return {}
+end
 
 return {
 	"yetone/avante.nvim",
